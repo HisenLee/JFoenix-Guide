@@ -1,0 +1,58 @@
+
+1.JFoenix 是以JavaFX为基础写的符合谷歌Material Design设计的组件，可以写出很完美的远超AWT/Swing的J2SE效果。
+Github参考：https://github.com/jfoenixadmin/JFoenix.
+每一个JFoenix的组件对象都有一个自己的CSS Class,可以参考http://www.jfoenix.com/documentation.html
+
+2.需要下载并安装JDK8+  和 JavaFX Scene Builder(https://www.oracle.com/technetwork/java/javafxscenebuilder-1x-archive-2199384.html)
+
+3.JFoenix基础使用可以参考https://ice1000.org/2016/06/25/MDOnDesktop/
+
+4.JavaFX的使用可以参考 http://www.javafxchina.net/blog/docs/tutorial1/
+
+5.JFoenix除了有主界面显示的MD控件之外，在源码的java\com\jfoenix\controls路径下也有很多好用的组件
+
+6.在IDE建立J2SE项目即可，然后用maven来管理JFoenix所需的包或者是JavaFX的包，否则自己下载jar包很不易管理
+ * 0.创建Maven项目
+ * 1.修改主类继承自Application 并实现start方法
+ * 2.在File->Project Structure 中创建resources/css;fonts;fxml资源文件夹
+ * 3.在pom.xml中添加jfoenix的依赖以及如果项目用到其他的依赖包
+ * 4.编写对应的Main.java以及创建实现final MainController和fxml文件即可
+ * 5.编写Controller的作用是，用java注射机制来映射fxml以及fxml中的UI组件(MVC中的C)
+ * 6.编写fxml中也要引入fx:controller="..Controller"(fxml是MVC中的V)
+ * 7.DataFX库可以做model或者是数据交互层
+ 
+7.DataFX 是一个通过 JavaFX UI 控件可轻松对数据进行获取、消息传递、填充、浏览和编辑的组件。
+DataFX支持的数据格式[数据源]包括:CSV,JavaArrays,JavaBeans,JDBC,JSON,XML,RedFX等
+
+8.写CSS样式的时候，布局中用fx:id标注的组件，用#来写css样式表。而.点操作符，是用来更改全局控件的，比如
+  .root{}  .label{}
+  
+9.JFoenix可以参考的CSS Class Name  
+	每一个JFoenix的组件对象都有一个自己的CSS Class,可以参考http://www.jfoenix.com/documentation.html
+	
+10.默认的窗体框架是用的装饰器JFXDecorator，如果想更改图标或者是最大化最小化的控制，可以自定义JFXDecorator
+
+11.添加样式文件
+		final ObservableList<String> styleSheets = scene.getStylesheets();
+        styleSheets.add(App.class.getResource("/css/jfoenix-components.css").toExternalForm());	
+		
+12.如果需要修改主窗体的颜色和边框宽度，需要修改装饰器的CSS ClassName [.jfx-decorator]
+	.jfx-decorator {
+    -fx-decorator-color: derive(#5264AE, -20%);
+	}
+
+	.jfx-decorator .jfx-decorator-buttons-container {
+		-fx-background-color: -fx-decorator-color;
+	}
+
+	.jfx-decorator .resize-border {
+		-fx-border-color: -fx-decorator-color;
+		-fx-border-width: 0 1 1 1;
+	}
+
+	.jfx-decorator .jfx-decorator-title-container .jfx-decorator-text {
+		-fx-fill: WHITE;
+		-fx-font-size: 16;
+		-fx-background-color: WHITE;
+	}
+  
